@@ -1,16 +1,9 @@
-header {
-  background-color: gray;
-  padding: 1rem;
-}
-
-header a {
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-}
-
 main {
-  padding: 1rem;
+  flex: 1;
+}
+
+.site-container {
+  min-height: 100vh;
 }
 
 .products {
