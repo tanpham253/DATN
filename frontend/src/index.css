@@ -12,9 +12,16 @@ main {
   justify-content: center;
 }
 
+.btn-primary {
+}
+
 .product {
   border: 1px gray solid;
   margin: 1rem;
+}
+
+.rating span {
+  color: gold;
 }
 
 .product img {
@@ -24,4 +31,7 @@ main {
 
 .product-info {
   padding: 1rem;
+}
+.img-large {
+  max-width: 100%;
 }
