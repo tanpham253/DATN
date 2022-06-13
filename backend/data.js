@@ -1,7 +1,20 @@
 const data = {
+  users: [
+    {
+      name: 'Tan',
+      email: 'admin@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: true,
+    },
+    {
+      name: 'John',
+      email: 'user@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
-      _id: '1',
       name: 'Iphone13',
       slug: 'apple-iphone-13',
       category: 'iphone',
@@ -14,7 +27,6 @@ const data = {
       description: 'iphone 13',
     },
     {
-      _id: '2',
       name: 'Iphone11',
       slug: 'apple-iphone-11',
       category: 'iphone',
@@ -27,7 +39,6 @@ const data = {
       description: 'iphone 11',
     },
     {
-      _id: '3',
       name: 'Samsungs12',
       slug: 'samsung-galaxy-s21',
       category: 'samsung',
@@ -40,7 +51,6 @@ const data = {
       description: 'samsung s21',
     },
     {
-      _id: '4',
       name: 'Samsungz',
       slug: 'samsung-z-fold3',
       category: 'samsung',
