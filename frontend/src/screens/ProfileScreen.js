@@ -28,6 +28,8 @@ export default function ProfileScreen() {
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [sellerName, setSellerName] = useState('');
+  const [sellerDescription, setSellerDescription] = useState('');
 
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
@@ -42,6 +44,8 @@ export default function ProfileScreen() {
           name,
           email,
           password,
+          sellerName,
+          sellerDescription,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -99,8 +103,35 @@ export default function ProfileScreen() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
+        {userInfo.isSeller && (
+          <>
+            <h2>Seller</h2>
+            <Form.Group className="mb-3" controlId="sellerName">
+              <Form.Label>Seller Name</Form.Label>
+              <Form.Control
+                id="sellerName"
+                type="text"
+                placeholder="Enter Seller Name"
+                value={sellerName}
+                onChange={(e) => setSellerName(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="sellerDescription">
+              <Form.Label>Seller Description</Form.Label>
+              <Form.Control
+                id="sellerDescription"
+                type="text"
+                placeholder="Enter Seller Description"
+                value={sellerDescription}
+                onChange={(e) => setSellerDescription(e.target.value)}
+              />
+            </Form.Group>
+          </>
+        )}
         <div className="mb-3">
-          <Button type="submit">Update</Button>
+          <Button disabled={loadingUpdate} type="submit">
+            Update
+          </Button>
         </div>
       </form>
     </div>

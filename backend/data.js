@@ -15,6 +15,19 @@ const data = {
       password: bcrypt.hashSync('123456'),
       isAdmin: false,
     },
+    {
+      name: 's',
+      email: 'seller@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+      isSeller: true,
+      seller: {
+        name: 'S',
+        description: 's',
+        rating: 4,
+        numReviews: 6,
+      },
+    },
   ],
   products: [
     {
