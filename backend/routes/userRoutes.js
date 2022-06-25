@@ -1,10 +1,20 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import data from '../data.js';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import { generateToken, isAdmin, isAuth } from '../utils.js';
 
 const userRouter = express.Router();
+
+userRouter.get(
+  '/seed',
+  expressAsyncHandler(async (req, res) => {
+    await User.remove({});
+    const createdUsers = await User.insertMany(data.users);
+    res.send({ createdUsers });
+  })
+);
 
 userRouter.get(
   '/',
@@ -13,6 +23,19 @@ userRouter.get(
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({});
     res.send(users);
+  })
+);
+
+userRouter.get(
+  '/seller/:id',
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
   })
 );
 
@@ -60,7 +83,7 @@ userRouter.post(
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
-          isSeller: user.IsSeller,
+          isSeller: user.isSeller,
           token: generateToken(user),
         });
         return;

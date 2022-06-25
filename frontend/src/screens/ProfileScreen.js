@@ -111,7 +111,6 @@ export default function ProfileScreen() {
               <Form.Control
                 id="sellerName"
                 type="text"
-                placeholder="Enter Seller Name"
                 value={sellerName}
                 onChange={(e) => setSellerName(e.target.value)}
               />
@@ -121,7 +120,6 @@ export default function ProfileScreen() {
               <Form.Control
                 id="sellerDescription"
                 type="text"
-                placeholder="Enter Seller Description"
                 value={sellerDescription}
                 onChange={(e) => setSellerDescription(e.target.value)}
               />

@@ -5,6 +5,8 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import { Store } from '../Store';
 import Rating from './Rating';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function Product(props) {
   const { product } = props;
@@ -36,7 +38,11 @@ function Product(props) {
           <Card.Title>{product.name}</Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>{product.price}đ</Card.Text>
+        <Row className="my-2">
+          <Col>
+            <Card.Text>{product.price}đ</Card.Text>
+          </Col>
+        </Row>
         {product.stock === '0' ? (
           <Button variant="light" disabled>
             Out of stock

@@ -8,6 +8,12 @@ const data = {
       password: bcrypt.hashSync('123456'),
       isAdmin: true,
       isSeller: true,
+      seller: {
+        name: 'AdminS',
+        description: 'AdminS',
+        rating: 5,
+        numReviews: 10,
+      },
     },
     {
       name: 'John',
@@ -17,7 +23,7 @@ const data = {
     },
     {
       name: 's',
-      email: 'seller@example.com',
+      email: 'seller1@example.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: false,
       isSeller: true,
@@ -26,6 +32,19 @@ const data = {
         description: 's',
         rating: 4,
         numReviews: 6,
+      },
+    },
+    {
+      name: 's2',
+      email: 'seller2@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+      isSeller: true,
+      seller: {
+        name: 'S2',
+        description: 's2',
+        rating: 3.5,
+        numReviews: 10,
       },
     },
   ],

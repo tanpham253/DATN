@@ -209,9 +209,7 @@ export default function ProductListScreen(props) {
               <Link
                 className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
                 key={x + 1}
-                to={`${
-                  sellerMode ? `/seller/products/` : `admin/products`
-                }?page=${x + 1}`}
+                to={`${sellerMode ? `/seller/products/` : ``}?page=${x + 1}`}
               >
                 {x + 1}
               </Link>

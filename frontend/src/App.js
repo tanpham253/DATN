@@ -34,6 +34,7 @@ import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import SellerRoute from './components/SellerRoute';
+import SellerScreen from './screens/SellerScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -117,10 +118,12 @@ function App() {
                     </Link>
                   )}
                   {userInfo && userInfo.isSeller && (
-                    <NavDropdown title="Seller" id="admin-nav-dropdown">
-                      <LinkContainer to="/seller/dashboard">
-                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
-                      </LinkContainer>
+                    <NavDropdown title="Seller" id="seller-nav-dropdown">
+                      {
+                        //<LinkContainer to="/seller/dashboard">
+                        //  <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                        //</LinkContainer>
+                      }
                       <LinkContainer to="/seller/products">
                         <NavDropdown.Item>Products</NavDropdown.Item>
                       </LinkContainer>
@@ -176,6 +179,7 @@ function App() {
         <main className="mt-3">
           <Container>
             <Routes>
+              <Route path="/seller/:id" element={<SellerScreen />}></Route>
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/search" element={<SearchScreen />} />
@@ -264,7 +268,6 @@ function App() {
                 path="/seller/products"
                 element={
                   <SellerRoute>
-                    {' '}
                     <ProductListScreen />
                   </SellerRoute>
                 }
@@ -273,7 +276,6 @@ function App() {
                 path="/seller/orders"
                 element={
                   <SellerRoute>
-                    {' '}
                     <OrderListScreen />
                   </SellerRoute>
                 }
