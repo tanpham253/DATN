@@ -5,6 +5,5 @@ import { Store } from '../Store';
 export default function SellerRoute({ children }) {
   const { state } = useContext(Store);
   const { userInfo } = state;
-
   return userInfo && userInfo.isSeller ? children : <Navigate to="/signin" />;
 }

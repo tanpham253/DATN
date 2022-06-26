@@ -265,6 +265,22 @@ function App() {
                 }
               ></Route>
               <Route
+                path="/seller/product/:id"
+                element={
+                  <SellerRoute>
+                    <ProductEditScreen />
+                  </SellerRoute>
+                }
+              ></Route>
+              <Route
+                path="/seller/dashboard"
+                element={
+                  <SellerRoute>
+                    <DashboardScreen />
+                  </SellerRoute>
+                }
+              ></Route>
+              <Route
                 path="/seller/products"
                 element={
                   <SellerRoute>
