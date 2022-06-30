@@ -160,10 +160,6 @@ function ProductScreen() {
                   <Link to={`/seller/${product.seller._id}`}>
                     {product.seller.seller.name}
                   </Link>
-                  <Rating
-                    rating={product.seller.seller.rating}
-                    numReviews={product.seller.seller.numReviews}
-                  ></Rating>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>

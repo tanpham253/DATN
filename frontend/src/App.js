@@ -74,18 +74,11 @@ function App() {
         <header>
           <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
-              <Button
-                variant="dark"
-                onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
-              >
-                <i className="fas fa-bars"></i>
-              </Button>
               <LinkContainer to="/">
-                <Navbar.Brand>store</Navbar.Brand>
+                <Navbar.Brand>STORE</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <SearchBox />
                 <Nav className="me-auto w-100 justify-content-end">
                   <Link to="/cart" className="nav-link">
                     <i className="fas fa-shopping-cart"></i>
@@ -95,80 +88,59 @@ function App() {
                       </Badge>
                     )}
                   </Link>
+                  {userInfo ? (
+                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                      <LinkContainer to="/profile">
+                        <NavDropdown.Item>User Profile</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/orderhistory">
+                        <NavDropdown.Item>Order History</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Divider />
+                      <Link
+                        className="dropdown-item"
+                        to="#signout"
+                        onClick={signoutHandler}
+                      >
+                        Sign Out
+                      </Link>
+                    </NavDropdown>
+                  ) : (
+                    <Link className="nav-link" to="/signin">
+                      Sign In
+                    </Link>
+                  )}
+                  {userInfo && userInfo.isSeller && (
+                    <NavDropdown title="Seller" id="admin-nav-dropdown">
+                      <LinkContainer to="/seller/products">
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/seller/orders">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
+                  )}
+                  {userInfo && userInfo.isAdmin && (
+                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                      <LinkContainer to="/admin/dashboard">
+                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/products">
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/orders">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/users">
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
+                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>
           </Navbar>
         </header>
-        <div
-          className={
-            sidebarIsOpen
-              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
-              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
-          }
-        >
-          <Nav className="flex-column w-100 p-2">
-            {userInfo ? (
-              <Nav>
-                <strong className="text-primary">User</strong>
-                <LinkContainer className="text-white" to="/profile">
-                  <NavDropdown.Item>User Profile</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer className="text-white" to="/orderhistory">
-                  <NavDropdown.Item>Order History</NavDropdown.Item>
-                </LinkContainer>
-                <Link
-                  className="dropdown-item text-white"
-                  to="#signout"
-                  onClick={signoutHandler}
-                >
-                  Sign Out
-                </Link>
-              </Nav>
-            ) : (
-              <Link className="nav-link text-white" to="/signin">
-                Sign In
-              </Link>
-            )}
-
-            {userInfo && userInfo.isSeller && (
-              <nav>
-                <strong className="text-warning">Seller</strong>
-                <LinkContainer className="text-white" to="/seller/products">
-                  <NavDropdown.Item>Products</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer className="text-white" to="/seller/orders">
-                  <NavDropdown.Item>Orders</NavDropdown.Item>
-                </LinkContainer>
-              </nav>
-            )}
-            {userInfo && userInfo.isAdmin && (
-              <Nav className="LinkC">
-                <strong className="text-success">Admin</strong>
-                <LinkContainer to="/admin/dashboard">
-                  <NavDropdown.Item className="text-white">
-                    Dashboard
-                  </NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/admin/products">
-                  <NavDropdown.Item className="text-white">
-                    Products
-                  </NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/admin/orders">
-                  <NavDropdown.Item className="text-white">
-                    Orders
-                  </NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/admin/users">
-                  <NavDropdown.Item className="text-white">
-                    Users
-                  </NavDropdown.Item>
-                </LinkContainer>
-              </Nav>
-            )}
-          </Nav>
-        </div>
         <main className="mt-3">
           <Container>
             <Routes>

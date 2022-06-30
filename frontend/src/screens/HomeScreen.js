@@ -7,6 +7,7 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import SearchBox from '../components/SearchBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -47,6 +48,63 @@ function HomeScreen() {
       <Helmet>
         <title>Store</title>
       </Helmet>
+      <section className="hero">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-3">
+              <div className="hero__categories">
+                <div className="hero__categories__all">
+                  <i className="fa fa-bars"></i>
+                  <span>All departments</span>
+                </div>
+                <ul>
+                  <li>
+                    <a href="#">Fresh Meat</a>
+                  </li>
+                  <li>
+                    <a href="#">Vegetables</a>
+                  </li>
+                  <li>
+                    <a href="#">Fruit & Nut Gifts</a>
+                  </li>
+                  <li>
+                    <a href="#">Fresh Berries</a>
+                  </li>
+                  <li>
+                    <a href="#">Ocean Foods</a>
+                  </li>
+                  <li>
+                    <a href="#">Butter & Eggs</a>
+                  </li>
+                  <li>
+                    <a href="#">Fastfood</a>
+                  </li>
+                  <li>
+                    <a href="#">Fresh Onion</a>
+                  </li>
+                  <li>
+                    <a href="#">Papayaya & Crisps</a>
+                  </li>
+                  <li>
+                    <a href="#">Oatmeal</a>
+                  </li>
+                  <li>
+                    <a href="#">Fresh Bananas</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-9">
+              <div className="hero__search">
+                <div classNames="hero__search__form">
+                  <SearchBox />
+                </div>
+              </div>
+              <div className="hero__item"></div>
+            </div>
+          </div>
+        </div>
+      </section>
       <h1>Products</h1>
       <div className="products">
         {loading ? (

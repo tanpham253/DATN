@@ -67,7 +67,14 @@ export default function SignupScreen() {
                     <Form.Group className="form-outline form-white mb-4 text-left">
                       <Form.Control
                         className="form-control-lg"
-                        type="email"
+                        placeholder="Name"
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group className="form-outline form-white mb-4 text-left">
+                      <Form.Control
+                        className="form-control-lg"
                         placeholder="email"
                         required
                         onChange={(e) => setEmail(e.target.value)}
@@ -76,8 +83,8 @@ export default function SignupScreen() {
                     <Form.Group className="form-outline form-white mb-4 text-left">
                       <Form.Control
                         className="form-control-lg"
-                        type="password"
                         placeholder="password"
+                        type="password"
                         required
                         onChange={(e) => setPassword(e.target.value)}
                       />
