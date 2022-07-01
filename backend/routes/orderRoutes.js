@@ -1,9 +1,36 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
+import User from '../models/userModel.js';
+import Product from '../models/productModel.js';
 import { isAuth, isAdmin, isSellerOrAdmin } from '../utils.js';
 
 const orderRouter = express.Router();
+
+orderRouter.get(
+  '/mine',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
+  })
+);
+
+orderRouter.get(
+  '/',
+  isAuth,
+  isSellerOrAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const seller = req.query.seller || '';
+    const sellerFilter = seller ? { seller } : {};
+
+    const orders = await Order.find({ ...sellerFilter }).populate(
+      'user',
+      'name'
+    );
+    res.send(orders);
+  })
+);
 
 orderRouter.post(
   '/',
@@ -16,16 +43,17 @@ orderRouter.post(
       itemsPrice,
       shippingPrice,
       taxPrice,
-      totalPrice,
+      toUSD,
     } = req.body;
     const newOrder = new Order({
+      seller: req.body.orderItems[0].seller,
       orderItems: orderItems.map((x) => ({ ...x, product: x._id })),
       shippingAddress,
       paymentMethod,
       itemsPrice,
       shippingPrice,
       taxPrice,
-      totalPrice,
+      toUSD,
       user: req.user._id,
     });
 
@@ -82,7 +110,7 @@ orderRouter.get(
         $group: {
           _id: null,
           numOrders: { $sum: 1 },
-          totalSales: { $sum: '$totalPrice' },
+          totalSales: { $sum: '$itemsPrice' },
         },
       },
     ]);
@@ -101,7 +129,7 @@ orderRouter.get(
         $group: {
           _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
           orders: { $sum: 1 },
-          sales: { $sum: '$totalPrice' },
+          sales: { $sum: '$itemsPrice' },
         },
       },
       { $sort: { _id: 1 } },
@@ -120,12 +148,19 @@ orderRouter.get(
   })
 );
 
-orderRouter.get(
-  '/mine',
+orderRouter.put(
+  '/:id/deliver',
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id });
-    res.send(orders);
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+      await order.save();
+      res.send({ message: 'Order Delivered' });
+    } else {
+      res.status(404).send({ message: 'Order Not Found' });
+    }
   })
 );
 

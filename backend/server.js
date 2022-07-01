@@ -28,7 +28,7 @@ app.get('/api/key/paypal', async (req, res) => {
 
 app.use('/api/upload', uploadRouter);
 app.use('/api/products', productRouter);
-app.use('/api/users', userRouter);
+app.use('/api/seed', seedRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 

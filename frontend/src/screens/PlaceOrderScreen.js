@@ -40,7 +40,7 @@ export default function PlaceOrderScreen() {
   );
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice;
+  cart.toUSD = round2(cart.itemsPrice * 0.000043);
 
   const placeOrderHandler = async () => {
     try {
@@ -55,7 +55,7 @@ export default function PlaceOrderScreen() {
           itemsPrice: cart.itemsPrice,
           shippingPrice: cart.shippingPrice,
           taxPrice: cart.taxPrice,
-          totalPrice: cart.totalPrice,
+          toUSD: cart.toUSD,
         },
         {
           headers: {
@@ -146,10 +146,10 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong> Order Total</strong>
+                      <strong>USD</strong>
                     </Col>
                     <Col>
-                      <strong>${cart.totalPrice.toFixed(2)}</strong>
+                      <strong>${cart.toUSD.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

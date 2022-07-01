@@ -59,7 +59,7 @@ export default function OrderScreen() {
       .create({
         purchase_units: [
           {
-            amount: { value: order.totalPrice },
+            amount: { value: order.toUSD },
           },
         ],
       })
@@ -234,10 +234,10 @@ export default function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong> Order Total</strong>
+                      <strong>USD</strong>
                     </Col>
                     <Col>
-                      <strong>${order.totalPrice.toFixed(2)}</strong>
+                      <strong>${order.toUSD.toFixed(2)}</strong>
                     </Col>
                   </Row>
                   {!order.isPaid && (

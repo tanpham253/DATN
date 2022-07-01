@@ -52,7 +52,7 @@ const data = {
     {
       name: 'Iphone13',
       slug: 'apple-iphone-13',
-      category: 'iphone',
+      category: 'smartphone',
       image: '/images/p1.PNG',
       price: '20000000',
       stock: '1',
@@ -64,7 +64,7 @@ const data = {
     {
       name: 'Iphone11',
       slug: 'apple-iphone-11',
-      category: 'iphone',
+      category: 'smartphone',
       image: '/images/p2.PNG',
       price: '12000000',
       stock: '0',
@@ -76,7 +76,7 @@ const data = {
     {
       name: 'Samsungs12',
       slug: 'samsung-galaxy-s21',
-      category: 'samsung',
+      category: 'smartphone',
       image: '/images/p3.PNG',
       price: '5000000',
       stock: '10',
@@ -88,7 +88,7 @@ const data = {
     {
       name: 'Samsungz',
       slug: 'samsung-z-fold3',
-      category: 'samsung',
+      category: 'smartphone',
       image: '/images/p4.PNG',
       price: '34000000',
       stock: '10',
