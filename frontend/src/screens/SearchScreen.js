@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
@@ -12,6 +12,7 @@ import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
 import LinkContainer from 'react-router-bootstrap/LinkContainer';
+import { Heading, Link } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -134,13 +135,13 @@ export default function SearchScreen() {
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Department</h3>
+          <Heading size="md">Department</Heading>
           <div>
             <ul>
               <li>
                 <Link
                   className={'all' === category ? 'text-bold' : ''}
-                  to={getFilterUrl({ category: 'all' })}
+                  href={getFilterUrl({ category: 'all' })}
                 >
                   Any
                 </Link>
@@ -149,7 +150,7 @@ export default function SearchScreen() {
                 <li key={c}>
                   <Link
                     className={c === category ? 'text-bold' : ''}
-                    to={getFilterUrl({ category: c })}
+                    href={getFilterUrl({ category: c })}
                   >
                     {c}
                   </Link>
@@ -158,12 +159,12 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Price</h3>
+            <Heading size="md">Price</Heading>
             <ul>
               <li>
                 <Link
                   className={'all' === price ? 'text-bold' : ''}
-                  to={getFilterUrl({ price: 'all' })}
+                  href={getFilterUrl({ price: 'all' })}
                 >
                   Any
                 </Link>
@@ -171,7 +172,7 @@ export default function SearchScreen() {
               {prices.map((p) => (
                 <li key={p.value}>
                   <Link
-                    to={getFilterUrl({ price: p.value })}
+                    href={getFilterUrl({ price: p.value })}
                     className={p.value === price ? 'text-bold' : ''}
                   >
                     {p.name}
@@ -181,12 +182,12 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <Heading size="md">Review</Heading>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
-                    to={getFilterUrl({ rating: r.rating })}
+                    href={getFilterUrl({ rating: r.rating })}
                     className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
                   >
                     <Rating caption={' & up'} rating={r.rating}></Rating>

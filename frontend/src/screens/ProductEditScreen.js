@@ -8,8 +8,23 @@ import Form from 'react-bootstrap/Form';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link,
+} from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,6 +56,7 @@ const reducer = (state, action) => {
   }
 };
 export default function ProductEditScreen() {
+  const color = useColorModeValue('gray.50', 'gray.800');
   const navigate = useNavigate();
   const params = useParams(); // /product/:id
   const { id: productId } = params;
@@ -143,92 +159,115 @@ export default function ProductEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit Product ${productId}</title>
+        <title>Create/Edit Products</title>
       </Helmet>
-      <h1>Edit Product {productId}</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="slug">
-            <Form.Label>Slug</Form.Label>
-            <Form.Control
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="image">
-            <Form.Label>Image File</Form.Label>
-            <Form.Control
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="imageFile">
-            <Form.Label>Upload File</Form.Label>
-            <Form.Control type="file" onChange={uploadFileHandler} />
-            {loadingUpload && <LoadingBox></LoadingBox>}
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="category">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="brand">
-            <Form.Label>Brand</Form.Label>
-            <Form.Control
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="stock">
-            <Form.Label>Count In Stock</Form.Label>
-            <Form.Control
-              value={stock}
-              onChange={(e) => setStock(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="description">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <div className="mb-3">
-            <Button disabled={loadingUpdate} type="submit">
-              Update
-            </Button>
-            {loadingUpdate && <LoadingBox></LoadingBox>}
-          </div>
-        </Form>
+        <Flex align={'center'} justify={'center'}>
+          <Stack spacing={8} mx={'auto'} maxW={'auto'} py={12} px={6}>
+            <Stack align={'center'}>
+              <Heading fontSize={'4xl'} textAlign={'center'}>
+                Create/Edit Products
+              </Heading>
+            </Stack>
+            <Form onSubmit={submitHandler}>
+              <Box rounded={'lg'} bg={color} boxShadow={'lg'} p={8}>
+                <Stack spacing={4}>
+                  <HStack spacing={16}>
+                    <Box>
+                      <Form.Group id="name">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                      <Form.Group id="name">
+                        <Form.Label>Price</Form.Label>
+                        <Form.Control
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                      <Form.Group id="image">
+                        <Form.Label>Image File</Form.Label>
+                        <Form.Control
+                          value={image}
+                          onChange={(e) => setImage(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                      <Form.Group id="imageFile">
+                        <Form.Label>Upload File</Form.Label>
+                        <Form.Control
+                          type="file"
+                          onChange={uploadFileHandler}
+                        />
+                        {loadingUpload && <LoadingBox></LoadingBox>}
+                      </Form.Group>
+                    </Box>
+                    <Box>
+                      <Form.Group id="category">
+                        <Form.Label>Category</Form.Label>
+                        <Form.Control
+                          value={category}
+                          onChange={(e) => setCategory(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                      <Form.Group id="brand">
+                        <Form.Label>Brand</Form.Label>
+                        <Form.Control
+                          value={brand}
+                          onChange={(e) => setBrand(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                      <Form.Group id="stock">
+                        <Form.Label>Count In Stock</Form.Label>
+                        <Form.Control
+                          value={stock}
+                          onChange={(e) => setStock(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                      <Form.Group id="description">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                    </Box>
+                  </HStack>
+                  <Stack spacing={10} pt={2}>
+                    <Button
+                      loadingText="Submitting"
+                      size="lg"
+                      bg={'blue.400'}
+                      color={'white'}
+                      _hover={{
+                        bg: 'blue.500',
+                      }}
+                      disabled={loadingUpdate}
+                      type="submit"
+                    >
+                      Update
+                    </Button>
+                    {loadingUpdate && <LoadingBox></LoadingBox>}
+                  </Stack>
+                </Stack>
+              </Box>
+            </Form>
+          </Stack>
+        </Flex>
       )}
     </Container>
   );

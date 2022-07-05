@@ -1,4 +1,3 @@
-import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
@@ -8,6 +7,27 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import SearchBox from '../components/SearchBox';
+import { Grid, GridItem } from '@chakra-ui/react';
+import { useContext, useEffect, useState, useReducer } from 'react';
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  IconButton,
+  Flex,
+  Spacer,
+  Text,
+  Heading,
+  Link,
+  useToast,
+  Image,
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +43,8 @@ const reducer = (state, action) => {
 };
 
 function HomeScreen() {
+  const toast = useToast();
+  const [categories, setCategories] = useState([]);
   const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,
@@ -42,70 +64,67 @@ function HomeScreen() {
       //setProducts(result.data);
     };
     fetchData();
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/categories`);
+        setCategories(data);
+      } catch (err) {
+        toast({
+          title: `error`,
+          status: 'error',
+          isClosable: true,
+        });
+      }
+    };
+    fetchCategories();
   }, []);
   return (
     <div>
       <Helmet>
         <title>Store</title>
       </Helmet>
-      <section className="hero">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3">
-              <div className="hero__categories">
-                <div className="hero__categories__all">
-                  <i className="fa fa-bars"></i>
-                  <span>DANH MỤC</span>
-                </div>
-                <ul>
-                  <li>
-                    <a href="#">Fresh Meat</a>
-                  </li>
-                  <li>
-                    <a href="#">Vegetables</a>
-                  </li>
-                  <li>
-                    <a href="#">Fruit & Nut Gifts</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Berries</a>
-                  </li>
-                  <li>
-                    <a href="#">Ocean Foods</a>
-                  </li>
-                  <li>
-                    <a href="#">Butter & Eggs</a>
-                  </li>
-                  <li>
-                    <a href="#">Fastfood</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Onion</a>
-                  </li>
-                  <li>
-                    <a href="#">Papayaya & Crisps</a>
-                  </li>
-                  <li>
-                    <a href="#">Oatmeal</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Bananas</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-lg-9">
-              <div className="hero__search">
-                <div classNames="hero__search__form">
-                  <SearchBox />
-                </div>
-              </div>
-              <div className="hero__item"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <h1>Products</h1>
+      <Grid
+        h="400px"
+        templateRows="repeat(12, 1fr)"
+        templateColumns="repeat(4, 1fr)"
+        gap={4}
+      >
+        <GridItem rowSpan={12} colSpan={1}>
+          <Menu>
+            <MenuButton w="100%" h="50" bg="#7fad39" p="4">
+              <Flex>
+                <Text color="white">DEPARTMENT</Text>
+                <Spacer />
+                <HamburgerIcon m="auto" />
+              </Flex>
+            </MenuButton>
+            <MenuList>
+              {categories.map((category) => {
+                return (
+                  <MenuItem key={category}>
+                    <Link href={`/search?category=${category}`}>
+                      {category}
+                    </Link>
+                  </MenuItem>
+                );
+              })}
+            </MenuList>
+          </Menu>
+        </GridItem>
+        <GridItem colSpan={3} rowSpan={2}>
+          <SearchBox h="100%" />
+        </GridItem>
+        <GridItem colSpan={3} rowSpan={10}>
+          <Image
+            h="100%"
+            w="100%"
+            src="https://res.cloudinary.com/duub1fspr/image/upload/v1656978439/bg1_uvufgv.jpg"
+          />
+        </GridItem>
+      </Grid>
+      <Heading align="center" m="4" bg="gray.50">
+        PRODUCTS
+      </Heading>
       <div className="products">
         {loading ? (
           <LoadingBox />

@@ -1,11 +1,29 @@
 import React, { useContext, useReducer, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import axios from 'axios';
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link,
+  useToast,
+  Checkbox,
+  CheckboxGroup,
+} from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -22,6 +40,7 @@ const reducer = (state, action) => {
 };
 
 export default function ProfileScreen() {
+  const color = useColorModeValue('gray.50', 'gray.800');
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const [name, setName] = useState(userInfo.name);
@@ -70,68 +89,108 @@ export default function ProfileScreen() {
       <Helmet>
         <title>User Profile</title>
       </Helmet>
-      <h1 className="my-3">User Profile</h1>
-      <form onSubmit={submitHandler}>
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </Form.Group>
-        {userInfo.isSeller && (
-          <>
-            <h2>Seller</h2>
-            <Form.Group className="mb-3" controlId="sellerName">
-              <Form.Label>Seller Name</Form.Label>
-              <Form.Control
-                id="sellerName"
-                type="text"
-                value={sellerName}
-                onChange={(e) => setSellerName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="sellerDescription">
-              <Form.Label>Seller Description</Form.Label>
-              <Form.Control
-                id="sellerDescription"
-                type="text"
-                value={sellerDescription}
-                onChange={(e) => setSellerDescription(e.target.value)}
-              />
-            </Form.Group>
-          </>
-        )}
-        <div className="mb-3">
-          <Button disabled={loadingUpdate} type="submit">
-            Update
-          </Button>
-        </div>
-      </form>
+      <Flex align={'center'} justify={'center'}>
+        <Stack spacing={8} mx={'auto'} maxW={'auto'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'} textAlign={'center'}>
+              Create/Edit Products
+            </Heading>
+          </Stack>
+          <Form onSubmit={submitHandler}>
+            <Box rounded={'lg'} bg={color} boxShadow={'lg'} p={8}>
+              <Stack spacing={4}>
+                <HStack spacing={16}>
+                  <Box>
+                    <Form.Group id="name">
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group id="name">
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Confirm Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Box>
+                  <Box>
+                    {userInfo.isSeller && (
+                      <>
+                        <Heading
+                          size="md"
+                          pb="10"
+                          align="center"
+                          color="orange"
+                        >
+                          Seller
+                        </Heading>
+                        <Form.Group className="mb-3" controlId="sellerName">
+                          <Form.Label>Seller Name</Form.Label>
+                          <Form.Control
+                            id="sellerName"
+                            type="text"
+                            value={sellerName}
+                            onChange={(e) => setSellerName(e.target.value)}
+                          />
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="sellerDescription"
+                        >
+                          <Form.Label>Seller Description</Form.Label>
+                          <Form.Control
+                            id="sellerDescription"
+                            type="text"
+                            value={sellerDescription}
+                            onChange={(e) =>
+                              setSellerDescription(e.target.value)
+                            }
+                          />
+                        </Form.Group>
+                      </>
+                    )}
+                  </Box>
+                </HStack>
+                <Stack spacing={10} pt={2}>
+                  <Button
+                    loadingText="Submitting"
+                    size="lg"
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                      bg: 'blue.500',
+                    }}
+                    disabled={loadingUpdate}
+                    type="submit"
+                  >
+                    Update
+                  </Button>
+                </Stack>
+              </Stack>
+            </Box>
+          </Form>
+        </Stack>
+      </Flex>
     </div>
   );
 }

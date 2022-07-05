@@ -7,17 +7,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StoreProvider } from './Store';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <StoreProvider>
-      <HelmetProvider>
-        <PayPalScriptProvider>
-          <App />
-        </PayPalScriptProvider>
-      </HelmetProvider>
-    </StoreProvider>
+    <ChakraProvider>
+      <StoreProvider>
+        <HelmetProvider>
+          <PayPalScriptProvider>
+            <App />
+          </PayPalScriptProvider>
+        </HelmetProvider>
+      </StoreProvider>
+    </ChakraProvider>
   </React.StrictMode>
 );
 

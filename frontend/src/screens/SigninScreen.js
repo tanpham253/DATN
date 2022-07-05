@@ -1,15 +1,28 @@
 import { Helmet } from 'react-helmet-async';
 import Axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
-import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Link,
+  Button,
+  Heading,
+  useColorModeValue,
+  useToast,
+  TagLabel,
+} from '@chakra-ui/react';
 
 export default function SigninScreen() {
+  const toast = useToast();
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
@@ -31,7 +44,11 @@ export default function SigninScreen() {
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (err) {
-      toast.error(getError(err));
+      toast({
+        title: `Wrong email or password`,
+        status: 'error',
+        isClosable: true,
+      });
     }
   };
 
@@ -42,65 +59,69 @@ export default function SigninScreen() {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <section className="vh-100">
+    <section>
       <Helmet>
         <title>Sign In</title>
       </Helmet>
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div className="card bg-dark text-white border-radius:1rem">
-              <div className="card-body p-5 text-center">
-                <div className="mb-md-5 mt-md-4 pb-5">
-                  <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                  <p className="text-white-50 mb-5">
-                    Please enter your email and password!
-                  </p>
-                  <Form onSubmit={submitHandler}>
-                    <Form.Group className="form-outline form-white mb-4 text-left">
-                      <Form.Control
-                        className="form-control-lg"
-                        type="email"
-                        placeholder="email"
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </Form.Group>
-                    <Form.Group className="form-outline form-white mb-4 text-left">
-                      <Form.Control
-                        className="form-control-lg"
-                        type="password"
-                        placeholder="password"
-                        required
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </Form.Group>
-
-                    <button
-                      className="btn btn-outline-light btn-lg px-5"
-                      type="submit"
-                    >
-                      Login
-                    </button>
-                  </Form>
-                </div>
-
-                <div>
-                  <p className="mb-0">
-                    Don't have an account?{' '}
+      <Flex minH={'50vh'} align={'center'} justify={'center'}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+          </Stack>
+          <Box
+            rounded={'lg'}
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
+            p={8}
+          >
+            <Stack spacing={4}>
+              <Form onSubmit={submitHandler}>
+                <FormControl
+                  id="email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                >
+                  <FormLabel>Email address</FormLabel>
+                  <Input type="email" />
+                </FormControl>
+                <FormControl
+                  id="password"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                >
+                  <FormLabel>Password</FormLabel>
+                  <Input type="password" />
+                </FormControl>
+                <Stack spacing={10}>
+                  <Stack
+                    direction={{ base: 'column', sm: 'row' }}
+                    align={'start'}
+                    justify={'space-between'}
+                  >
+                    <FormLabel>Don't have an account? </FormLabel>
                     <Link
-                      to={`/signup?redirect=${redirect}`}
-                      className="text-white-50 fw-bold"
+                      href={`/signup?redirect=${redirect}`}
+                      color={'blue.400'}
                     >
                       Create your account
                     </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                  </Stack>
+                  <Button
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                      bg: 'blue.500',
+                    }}
+                    type="submit"
+                  >
+                    Sign in
+                  </Button>
+                </Stack>
+              </Form>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
     </section>
   );
 }

@@ -1,15 +1,33 @@
 import Axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
 import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
-import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link,
+  useToast,
+} from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 export default function SignupScreen() {
+  const toast = useToast();
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
@@ -25,7 +43,11 @@ export default function SignupScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast({
+        title: `Password do not match`,
+        status: 'error',
+        isClosable: true,
+      });
       return;
     }
     try {
@@ -38,7 +60,11 @@ export default function SignupScreen() {
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (err) {
-      toast.error(getError(err));
+      toast({
+        title: `error`,
+        status: 'error',
+        isClosable: true,
+      });
     }
   };
 
@@ -49,80 +75,111 @@ export default function SignupScreen() {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <Container className="vh-100">
+    <Container>
       <Helmet>
         <title>Sign Up</title>
       </Helmet>
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div className="card bg-dark text-white border-radius:1rem">
-              <div className="card-body p-5 text-center">
-                <div className="mb-md-5 mt-md-4 pb-5">
-                  <h2 className="fw-bold mb-2 text-uppercase">Signup</h2>
-                  <p className="text-white-50 mb-5">
-                    Please enter your email and password!
-                  </p>
-                  <Form onSubmit={submitHandler}>
-                    <Form.Group className="form-outline form-white mb-4 text-left">
-                      <Form.Control
-                        className="form-control-lg"
-                        placeholder="Name"
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                      />
-                    </Form.Group>
-                    <Form.Group className="form-outline form-white mb-4 text-left">
-                      <Form.Control
-                        className="form-control-lg"
-                        placeholder="email"
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </Form.Group>
-                    <Form.Group className="form-outline form-white mb-4 text-left">
-                      <Form.Control
-                        className="form-control-lg"
-                        placeholder="password"
-                        type="password"
-                        required
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="confirmPassword">
-                      <Form.Label>Confirm Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                      />
-                    </Form.Group>
-
-                    <button
-                      className="btn btn-outline-light btn-lg px-5"
-                      type="submit"
-                    >
-                      Create Account
-                    </button>
-                  </Form>
-                </div>
-
-                <div>
-                  <p className="mb-0">
-                    Already have an account?{' '}
+      <Flex minH={'50vh'} align={'center'} justify={'center'}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'} textAlign={'center'}>
+              Sign up
+            </Heading>
+          </Stack>
+          <Box
+            rounded={'lg'}
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
+            p={8}
+          >
+            <Stack spacing={4}>
+              <Form onSubmit={submitHandler}>
+                <FormControl
+                  id="name"
+                  isRequired
+                  onChange={(e) => setName(e.target.value)}
+                >
+                  <FormLabel>Name</FormLabel>
+                  <Input />
+                </FormControl>
+                <FormControl
+                  id="email"
+                  isRequired
+                  onChange={(e) => setEmail(e.target.value)}
+                >
+                  <FormLabel>Email address</FormLabel>
+                  <Input type="email" />
+                </FormControl>
+                <FormControl
+                  id="password"
+                  isRequired
+                  onChange={(e) => setPassword(e.target.value)}
+                >
+                  <FormLabel>Password</FormLabel>
+                  <InputGroup>
+                    <Input type={showPassword ? 'text' : 'password'} />
+                    <InputRightElement h={'full'}>
+                      <Button
+                        variant={'ghost'}
+                        onClick={() =>
+                          setShowPassword((showPassword) => !showPassword)
+                        }
+                      >
+                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <FormControl
+                  id="password"
+                  isRequired
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                >
+                  <FormLabel>Confirm Password</FormLabel>
+                  <InputGroup>
+                    <Input type={showPassword ? 'text' : 'password'} />
+                    <InputRightElement h={'full'}>
+                      <Button
+                        variant={'ghost'}
+                        onClick={() =>
+                          setShowPassword((showPassword) => !showPassword)
+                        }
+                      >
+                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <Stack spacing={10} pt={2}>
+                  <Button
+                    loadingText="Submitting"
+                    size="lg"
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                      bg: 'blue.500',
+                    }}
+                    type="submit"
+                  >
+                    Sign up
+                  </Button>
+                </Stack>
+                <Stack pt={6}>
+                  <Text align={'center'}>
+                    Already a user?{' '}
                     <Link
-                      to={`/signin?redirect=${redirect}`}
-                      className="text-white-50 fw-bold"
+                      href={`/signin?redirect=${redirect}`}
+                      color={'blue.400'}
                     >
-                      Signin
+                      Login
                     </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                  </Text>
+                </Stack>
+              </Form>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
     </Container>
   );
 }
