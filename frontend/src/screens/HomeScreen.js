@@ -115,7 +115,7 @@ function HomeScreen() {
                 p="4"
                 role="group"
               >
-                <HamburgerIcon /> DANH MỤC
+                <HamburgerIcon /> Category
               </Text>
               {categories.map((category) => (
                 <Link
