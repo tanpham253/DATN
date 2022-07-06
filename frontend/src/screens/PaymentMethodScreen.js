@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { Store } from '../Store';
+import { Container, Heading } from '@chakra-ui/react';
 
 export default function PaymentMethodScreen() {
   const navigate = useNavigate();
@@ -29,13 +30,15 @@ export default function PaymentMethodScreen() {
     navigate('/placeorder');
   };
   return (
-    <div>
+    <Container maxW="80%">
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className="container small-container">
         <Helmet>
           <title>Payment Method</title>
         </Helmet>
-        <h1 className="my-3">Payment Method</h1>
+        <Heading align="center" m="4" bg="gray.50">
+          Payment Method
+        </Heading>
         <Form onSubmit={submitHandler}>
           <div className="mb-3">
             <Form.Check
@@ -62,6 +65,6 @@ export default function PaymentMethodScreen() {
           </div>
         </Form>
       </div>
-    </div>
+    </Container>
   );
 }

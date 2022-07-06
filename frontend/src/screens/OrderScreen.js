@@ -12,6 +12,7 @@ import axios from 'axios';
 import { getError } from '../utils';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
+import { Container, Heading } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -141,11 +142,13 @@ export default function OrderScreen() {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div>
+    <Container maxW="80%">
       <Helmet>
         <title>Order {orderId}</title>
       </Helmet>
-      <h1 className="my-3">Order {orderId}</h1>
+      <Heading align="center" m="4" bg="gray.50">
+        Order {orderId}
+      </Heading>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
@@ -215,20 +218,8 @@ export default function OrderScreen() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
-                    <Col>${order.itemsPrice.toFixed(2)}</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Shipping</Col>
-                    <Col>${order.shippingPrice.toFixed(2)}</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Tax</Col>
-                    <Col>${order.taxPrice.toFixed(2)}</Col>
+                    <Col>Total</Col>
+                    <Col>${order.itemsPrice.toFixed(0)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -262,6 +253,6 @@ export default function OrderScreen() {
           </Card>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }

@@ -9,6 +9,7 @@ import { Store } from '../Store';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
+import { Container, Heading } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -142,20 +143,14 @@ export default function ProductListScreen(props) {
   };
 
   return (
-    <div>
-      <Row>
-        <Col>
-          <h1>Products</h1>
-        </Col>
-        <Col className="col text-end">
-          <div>
-            <Button type="button" onClick={createHandler}>
-              Create Product
-            </Button>
-          </div>
-        </Col>
-      </Row>
+    <Container maxW="80%">
+      <Heading align="center" m="4" bg="gray.50">
+        Products
+      </Heading>
 
+      <Button type="button" onClick={createHandler}>
+        Create Product
+      </Button>
       {loadingCreate && <LoadingBox></LoadingBox>}
       {loadingDelete && <LoadingBox></LoadingBox>}
       {loading ? (
@@ -217,6 +212,6 @@ export default function ProductListScreen(props) {
           </div>
         </>
       )}
-    </div>
+    </Container>
   );
 }

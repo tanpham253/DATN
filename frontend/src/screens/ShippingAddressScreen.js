@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { Store } from '../Store';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { Container, Heading } from '@chakra-ui/react';
 
 export default function ShippingAddressScreen() {
   const navigate = useNavigate();
@@ -50,14 +51,16 @@ export default function ShippingAddressScreen() {
     navigate('/payment');
   };
   return (
-    <div>
+    <Container maxW="80%">
       <Helmet>
         <title>Shipping Address</title>
       </Helmet>
 
       <CheckoutSteps step1 step2></CheckoutSteps>
       <div className="container small-container">
-        <h1 className="my-3">Shipping Address</h1>
+        <Heading align="center" m="4" bg="gray.50">
+          Shipping Address
+        </Heading>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="fullName">
             <Form.Label>Full Name</Form.Label>
@@ -106,6 +109,6 @@ export default function ShippingAddressScreen() {
           </div>
         </Form>
       </div>
-    </div>
+    </Container>
   );
 }

@@ -10,7 +10,7 @@ import SearchBox from '../components/SearchBox';
 import { Grid, GridItem } from '@chakra-ui/react';
 import { useContext, useEffect, useState, useReducer } from 'react';
 import {
-  Menu,
+  Container,
   MenuButton,
   MenuList,
   MenuItem,
@@ -26,6 +26,11 @@ import {
   Link,
   useToast,
   Image,
+  Select,
+  useColorModeValue,
+  Box,
+  NavItem,
+  Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 
@@ -79,68 +84,101 @@ function HomeScreen() {
     fetchCategories();
   }, []);
   return (
-    <div>
+    <Container maxW="80%">
       <Helmet>
         <title>Store</title>
       </Helmet>
       <Grid
-        h="400px"
-        templateRows="repeat(12, 1fr)"
-        templateColumns="repeat(4, 1fr)"
-        gap={4}
+        templateAreas={`"search search"
+        "dep img"
+        "dep body"`}
+        gridTemplateRows={'50px 1fr 30px'}
+        gridTemplateColumns={'150px 1fr'}
+        gap="1"
+        color="blackAlpha.700"
+        fontWeight="bold"
       >
-        <GridItem rowSpan={12} colSpan={1}>
-          <Menu>
-            <MenuButton w="100%" h="50" bg="#7fad39" p="4">
-              <Flex>
-                <Text color="white">DEPARTMENT</Text>
-                <Spacer />
-                <HamburgerIcon m="auto" />
-              </Flex>
-            </MenuButton>
-            <MenuList>
-              {categories.map((category) => {
-                return (
-                  <MenuItem key={category}>
-                    <Link href={`/search?category=${category}`}>
-                      {category}
-                    </Link>
-                  </MenuItem>
-                );
-              })}
-            </MenuList>
-          </Menu>
+        <GridItem area={'dep'}>
+          <Box
+            bg={useColorModeValue('white', 'gray.900')}
+            borderRight="1px"
+            borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+            w={{ base: 'full', md: 40 }}
+            h="full"
+          >
+            <Stack spacing={0} display={{ base: 'none', md: 'flex' }}>
+              <Text
+                fontWeight="bold"
+                bg="pink"
+                color="white"
+                align="center"
+                p="4"
+                role="group"
+              >
+                <HamburgerIcon /> DANH MỤC
+              </Text>
+              {categories.map((category) => (
+                <Link
+                  href={`/search?category=${category}`}
+                  key={category}
+                  align="center"
+                  p="3"
+                  border="1px"
+                  borderColor="cyan.100"
+                  cursor="pointer"
+                  _hover={{
+                    bg: 'cyan.400',
+                    color: 'white',
+                  }}
+                >
+                  {category}
+                </Link>
+              ))}
+            </Stack>
+          </Box>
+          {/*
+          <Select>
+            {categories.map((category) => {
+              return (
+                <option
+                  onClick={() => {
+                    <Link href={`/search?category=${category}`}></Link>;
+                  }}
+                >
+                  {category}
+                </option>
+              );
+            })}
+          </Select>*/}
         </GridItem>
-        <GridItem colSpan={3} rowSpan={2}>
-          <SearchBox h="100%" />
+        <GridItem area={'search'} w="50%" mx="auto">
+          <SearchBox />
         </GridItem>
-        <GridItem colSpan={3} rowSpan={10}>
-          <Image
-            h="100%"
-            w="100%"
-            src="https://res.cloudinary.com/duub1fspr/image/upload/v1656978439/bg1_uvufgv.jpg"
-          />
+        <GridItem area={'img'} maxH="50%" align="center">
+          <Image src="https://res.cloudinary.com/duub1fspr/image/upload/v1656978439/bg1_uvufgv.jpg" />
+        </GridItem>
+        <GridItem area={'body'}>
+          <Heading align="center" m="4" bg="gray.50">
+            PRODUCTS
+          </Heading>
+          <div className="products">
+            {loading ? (
+              <LoadingBox />
+            ) : error ? (
+              <MessageBox variant="danger">{error}</MessageBox>
+            ) : (
+              <Row>
+                {products.map((product) => (
+                  <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                    <Product product={product}></Product>
+                  </Col>
+                ))}
+              </Row>
+            )}
+          </div>
         </GridItem>
       </Grid>
-      <Heading align="center" m="4" bg="gray.50">
-        PRODUCTS
-      </Heading>
-      <div className="products">
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-          <Row>
-            {products.map((product) => (
-              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                <Product product={product}></Product>
-              </Col>
-            ))}
-          </Row>
-        )}
-      </div>
-    </div>
+    </Container>
   );
 }
 export default HomeScreen;

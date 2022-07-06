@@ -12,6 +12,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import LoadingBox from '../components/LoadingBox';
+import { Container, Heading } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -80,12 +81,14 @@ export default function PlaceOrderScreen() {
   }, [cart, navigate]);
 
   return (
-    <div>
+    <Container maxW="80%">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <Helmet>
         <title>Preview Order</title>
       </Helmet>
-      <h1 className="my-3">Preview Order</h1>
+      <Heading align="center" m="4" bg="gray.50">
+        Preview Order
+      </Heading>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
@@ -145,6 +148,12 @@ export default function PlaceOrderScreen() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
+                    <Col>Total</Col>
+                    <Col>${cart.itemsPrice.toFixed(0)}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
                     <Col>
                       <strong>USD</strong>
                     </Col>
@@ -170,6 +179,6 @@ export default function PlaceOrderScreen() {
           </Card>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }

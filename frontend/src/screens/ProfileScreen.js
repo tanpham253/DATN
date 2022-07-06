@@ -85,7 +85,7 @@ export default function ProfileScreen() {
   };
 
   return (
-    <div className="container small-container">
+    <div>
       <Helmet>
         <title>User Profile</title>
       </Helmet>

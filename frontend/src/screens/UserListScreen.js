@@ -8,6 +8,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import { Container, Heading } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -88,11 +89,13 @@ export default function UserListScreen() {
     }
   };
   return (
-    <div>
+    <Container maxW="80%">
       <Helmet>
         <title>Users</title>
       </Helmet>
-      <h1>Users</h1>
+      <Heading align="center" m="4" bg="gray.50">
+        Users
+      </Heading>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -141,6 +144,6 @@ export default function UserListScreen() {
           </tbody>
         </table>
       )}
-    </div>
+    </Container>
   );
 }

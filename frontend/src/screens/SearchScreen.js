@@ -12,7 +12,7 @@ import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
 import LinkContainer from 'react-router-bootstrap/LinkContainer';
-import { Heading, Link } from '@chakra-ui/react';
+import { Container, Heading, Link } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {

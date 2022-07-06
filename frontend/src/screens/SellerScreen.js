@@ -11,6 +11,7 @@ import MessageBox from '../components/MessageBox';
 import Product from '../components/Product';
 import Rating from '../components/Rating';
 import { getError } from '../utils';
+import { Container, Heading } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {

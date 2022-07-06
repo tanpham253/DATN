@@ -16,6 +16,7 @@ import { Store } from '../Store';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { toast } from 'react-toastify';
+import { Container, Heading } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -121,7 +122,7 @@ function ProductScreen() {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div>
+    <Container maxW="80%" m="auto">
       <Row>
         <Col md={6}>
           <img
@@ -261,7 +262,7 @@ function ProductScreen() {
           )}
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 export default ProductScreen;

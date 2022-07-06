@@ -9,6 +9,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
+import { Container, Heading } from '@chakra-ui/react';
 
 export default function CartScreen() {
   const navigate = useNavigate();
@@ -37,11 +38,13 @@ export default function CartScreen() {
   };
 
   return (
-    <div>
+    <Container maxW="80%">
       <Helmet>
         <title> Shopping Cart</title>
       </Helmet>
-      <h1>Shopping Cart</h1>
+      <Heading align="center" m="4" bg="gray.50">
+        Shopping Cart
+      </Heading>
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
@@ -125,6 +128,6 @@ export default function CartScreen() {
           </Card>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
