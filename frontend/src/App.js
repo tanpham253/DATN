@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -56,7 +57,9 @@ function App() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
-
+  {
+    /*Action User_signout tới local xóa userinfo(token) và cart lưu trong local store.js*/
+  }
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');

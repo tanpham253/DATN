@@ -66,7 +66,7 @@ export default function SellerScreen(props) {
   console.log(user.seller);
 
   return (
-    <>
+    <Container maxW="80%">
       <Row>
         <Col md={3}>
           {loadingSeller ? (
@@ -88,17 +88,6 @@ export default function SellerScreen(props) {
                   <ListGroup.Item>
                     <Row>
                       <Col>{user?.seller?.name}</Col>
-                      <Col>
-                        <Badge bg="danger">
-                          {' '}
-                          <a
-                            className="text-decoration-none text-white"
-                            href={`mailto:${user?.email}`}
-                          >
-                            Contact Seller
-                          </a>
-                        </Badge>
-                      </Col>
                     </Row>
                   </ListGroup.Item>
                 </ListGroup>
@@ -127,6 +116,6 @@ export default function SellerScreen(props) {
           </Row>
         </Col>
       </Row>
-    </>
+    </Container>
   );
 }
