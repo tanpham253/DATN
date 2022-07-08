@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
 import LinkContainer from 'react-router-bootstrap/LinkContainer';
 import { Container, Heading, Link } from '@chakra-ui/react';
+import SearchBox from '../components/SearchBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -133,6 +134,9 @@ export default function SearchScreen() {
       <Helmet>
         <title>Search Products</title>
       </Helmet>
+      <Container area={'search'} w="50%" mx="auto">
+        <SearchBox />
+      </Container>
       <Row>
         <Col md={3}>
           <Heading size="md">Category</Heading>
