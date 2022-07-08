@@ -6,16 +6,6 @@ import Product from '../models/productModel.js';
 import { isAuth, isAdmin, isSellerOrAdmin } from '../utils.js';
 
 const orderRouter = express.Router();
-
-orderRouter.get(
-  '/mine',
-  isAuth,
-  expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id });
-    res.send(orders);
-  })
-);
-
 orderRouter.get(
   '/',
   isAuth,
@@ -31,7 +21,6 @@ orderRouter.get(
     res.send(orders);
   })
 );
-
 orderRouter.post(
   '/',
   isAuth,
@@ -63,6 +52,14 @@ orderRouter.post(
 );
 
 orderRouter.get(
+  '/mine',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
+  })
+);
+orderRouter.get(
   '/:id',
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -73,7 +70,6 @@ orderRouter.get(
     res.status(404).send({ message: 'Order not found.' });
   })
 );
-
 orderRouter.put(
   '/:id/pay',
   isAuth,
