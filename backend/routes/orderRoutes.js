@@ -6,6 +6,15 @@ import Product from '../models/productModel.js';
 import { isAuth, isAdmin, isSellerOrAdmin } from '../utils.js';
 
 const orderRouter = express.Router();
+
+orderRouter.get(
+  '/seed',
+  expressAsyncHandler(async (req, res) => {
+    await Order.remove({});
+    res.send({ message: 'Deleted order' });
+  })
+);
+
 orderRouter.get(
   '/',
   isAuth,

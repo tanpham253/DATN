@@ -8,18 +8,6 @@ import { generateToken, isAdmin, isAuth } from '../utils.js';
 const userRouter = express.Router();
 
 userRouter.get(
-  '/seller/:id',
-  expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-
-    if (user) {
-      res.send(user);
-    } else {
-      res.status(404).send({ message: 'User Not Found' });
-    }
-  })
-);
-userRouter.get(
   '/seed',
   expressAsyncHandler(async (req, res) => {
     await User.remove({});
@@ -35,6 +23,19 @@ userRouter.get(
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({});
     res.send(users);
+  })
+);
+
+userRouter.get(
+  '/seller/:id',
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
   })
 );
 
