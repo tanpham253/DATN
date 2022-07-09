@@ -157,7 +157,7 @@ function ProductScreen() {
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  Seller{' '}
+                  Seller{': '}
                   <Link to={`/seller/${product.seller._id}`}>
                     {product.seller.seller.name}
                   </Link>

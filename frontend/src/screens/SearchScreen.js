@@ -129,13 +129,13 @@ export default function SearchScreen() {
     return `/search?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
-    <div>
+    <Container maxW="80%">
       <Helmet>
         <title>Search Products</title>
       </Helmet>
       <Row>
         <Col md={3}>
-          <Heading size="md">Department</Heading>
+          <Heading size="md">Category</Heading>
           <div>
             <ul>
               <li>
@@ -153,29 +153,6 @@ export default function SearchScreen() {
                     href={getFilterUrl({ category: c })}
                   >
                     {c}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <Heading size="md">Price</Heading>
-            <ul>
-              <li>
-                <Link
-                  className={'all' === price ? 'text-bold' : ''}
-                  href={getFilterUrl({ price: 'all' })}
-                >
-                  Any
-                </Link>
-              </li>
-              {prices.map((p) => (
-                <li key={p.value}>
-                  <Link
-                    href={getFilterUrl({ price: p.value })}
-                    className={p.value === price ? 'text-bold' : ''}
-                  >
-                    {p.name}
                   </Link>
                 </li>
               ))}
@@ -280,6 +257,6 @@ export default function SearchScreen() {
           )}
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
