@@ -137,6 +137,9 @@ userRouter.put(
         email: updatedUser.email,
         isAdmin: updatedUser.isAdmin,
         isSeller: updatedUser.isSeller,
+        sellerName: req.body.sellerName || user.seller.name,
+        sellerDescription:
+          req.body.sellerDescription || user.seller.description,
         token: generateToken(updatedUser),
       });
     } else {
