@@ -66,7 +66,7 @@ export default function SellerScreen(props) {
   console.log(user.seller);
 
   return (
-    <>
+    <Container maxW="80%">
       <Row>
         <Col md={3}>
           {loadingSeller ? (
@@ -127,6 +127,6 @@ export default function SellerScreen(props) {
           </Row>
         </Col>
       </Row>
-    </>
+    </Container>
   );
 }
