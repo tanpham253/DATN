@@ -88,17 +88,6 @@ export default function SellerScreen(props) {
                   <ListGroup.Item>
                     <Row>
                       <Col>{user?.seller?.name}</Col>
-                      <Col>
-                        <Badge bg="danger">
-                          {' '}
-                          <a
-                            className="text-decoration-none text-white"
-                            href={`mailto:${user?.email}`}
-                          >
-                            Contact Seller
-                          </a>
-                        </Badge>
-                      </Col>
                     </Row>
                   </ListGroup.Item>
                 </ListGroup>
